@@ -14,12 +14,15 @@ def load_tasks():
     except json.JSONDecodeError:
         return []
 
+    pass
+
+
 def save_tasks(tasks):
-    try:
-        with open(FILENAME, "w", encoding="utf-8") as f:
-            json.dump(tasks, f, ensure_ascii=False, indent=4)
-    except (OSError, TypeError) as e:
-        print(f"Ошибка записи файла: {e}")
+
+    with open(FILENAME, "w", encoding="utf-8") as f:
+        json.dump(tasks, f, ensure_ascii=False, indent=4)
+
+    pass
 
 
 def view_tasks(tasks):
@@ -30,18 +33,21 @@ def view_tasks(tasks):
         for i, task in enumerate(tasks, start=1):
             print(f"{i}. {task['title']} — [{task['priority']}]")
 
+    pass
+
+
 def add_task(tasks):
 
     title = input("Введите название задачи: \n")
-    try:
-        priority = int(input("Введите приоритет (1 - Низкий/2 - Средний/3 - Высокий): \n"))
-        priority_type = ["Низкий", "Средний", "Высокий"]
-        task = {"title": title, "priority": priority_type[priority]}
-        tasks.append(task)
-        save_tasks(tasks)
-        print("Задача добавлена\n")
-    except ValueError:
-        print("Неккоректо выбранный приоритет, попробуйте еще раз\n")
+    priority = input("Введите приоритет (Низкий/Средний/Высокий): \n")
+    task = {"title": title, "priority": priority}
+    tasks.append(task)
+    save_tasks(tasks)
+    print("Задача добавлена\n")
+
+
+    pass
+
 
 def delete_task(tasks):
 
@@ -55,6 +61,10 @@ def delete_task(tasks):
 
     except ValueError:
         print("Введено некорректное число\n")
+
+
+    pass
+
 
 def main():
     print("Добро пожаловать в менеджер задач!")
@@ -80,6 +90,7 @@ def main():
             break
         else:
             print("Ошибка: такого пункта меню нет. Попробуйте снова.\n")
+
 
 if __name__ == "__main__":
     main()
