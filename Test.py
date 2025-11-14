@@ -1,0 +1,96 @@
+import json
+import os
+
+FILENAME = "tasks.json"
+
+
+def load_tasks():
+    if not os.path.exists(FILENAME):
+        return []
+    try:
+        with open(FILENAME, "r", encoding="utf-8") as f:
+            tasks = json.load(f)
+            return tasks
+    except json.JSONDecodeError:
+        return []
+
+    pass
+
+
+def save_tasks(tasks):
+
+    with open(FILENAME, "w", encoding="utf-8") as f:
+        json.dump(tasks, f, ensure_ascii=False, indent=4)
+
+    pass
+
+
+def view_tasks(tasks):
+
+    if not tasks:
+        print("Список задач пуст.")
+    else:
+        for i, task in enumerate(tasks, start=1):
+            print(f"{i}. {task['title']} — [{task['priority']}]")
+
+    pass
+
+
+def add_task(tasks):
+
+    title = input("Введите название задачи: \n")
+    priority = input("Введите приоритет (Низкий/Средний/Высокий): \n")
+    task = {"title": title, "priority": priority}
+    tasks.append(task)
+    save_tasks(tasks)
+    print("Задача добавлена\n")
+
+
+    pass
+
+
+def delete_task(tasks):
+
+    try:
+        number = input("Введите номер задачи\n")
+        num = int(number)
+        var = 1 <= num <= len(tasks)
+        tasks.pop(num - 1)
+        save_tasks(tasks)
+        print("Задача удалена\n")
+
+    except ValueError:
+        print("Введено некорректное число\n")
+
+
+    pass
+
+
+def main():
+    print("Добро пожаловать в менеджер задач!")
+    tasks = load_tasks()
+
+    while True:
+        print("\nМеню:")
+        print("1 — Просмотреть задачи")
+        print("2 — Добавить задачу")
+        print("3 — Удалить задачу")
+        print("0 — Выход")
+
+        choice = input("Выберите пункт меню: \n")
+
+        if choice == "1":
+            view_tasks(tasks)
+        elif choice == "2":
+            add_task(tasks)
+        elif choice == "3":
+            delete_task(tasks)
+        elif choice == "0":
+            print("Выход из программы.\n")
+            break
+        else:
+            print("Ошибка: такого пункта меню нет. Попробуйте снова.\n")
+
+
+if __name__ == "__main__":
+    main()
