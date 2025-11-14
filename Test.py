@@ -14,15 +14,11 @@ def load_tasks():
     except json.JSONDecodeError:
         return []
 
-    pass
-
 
 def save_tasks(tasks):
 
     with open(FILENAME, "w", encoding="utf-8") as f:
         json.dump(tasks, f, ensure_ascii=False, indent=4)
-
-    pass
 
 
 def view_tasks(tasks):
@@ -33,8 +29,6 @@ def view_tasks(tasks):
         for i, task in enumerate(tasks, start=1):
             print(f"{i}. {task['title']} — [{task['priority']}]")
 
-    pass
-
 
 def add_task(tasks):
 
@@ -44,9 +38,6 @@ def add_task(tasks):
     tasks.append(task)
     save_tasks(tasks)
     print("Задача добавлена\n")
-
-
-    pass
 
 
 def delete_task(tasks):
@@ -61,9 +52,6 @@ def delete_task(tasks):
 
     except ValueError:
         print("Введено некорректное число\n")
-
-
-    pass
 
 
 def main():
