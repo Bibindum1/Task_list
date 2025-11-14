@@ -33,8 +33,11 @@ def view_tasks(tasks):
 def add_task(tasks):
 
     title = input("Введите название задачи: \n")
-    priority = input("Введите приоритет (Низкий/Средний/Высокий): \n")
-    task = {"title": title, "priority": priority}
+    priority = int(input("Введите приоритет (1 - Низкий/2 - Средний/3 - Высокий): \n"))
+
+    priority_type = ["низкий", "средний","высокий"]
+    
+    task = {"title": title, "priority": priority_type[priority]}
     tasks.append(task)
     save_tasks(tasks)
     print("Задача добавлена\n")
